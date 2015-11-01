@@ -38,6 +38,7 @@ public:
 	void get_module(const std::string &name, std::function<void(module &)> callback) const;
 
 private:
+	const std::string conf_path;
 	std::unordered_map<std::string, std::string> mod_paths;
 
 };

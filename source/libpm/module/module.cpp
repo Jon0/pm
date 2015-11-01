@@ -61,7 +61,11 @@ const char *module::get_page(const char *page_name) const {
 }
 
 
-module_config::module_config(const std::string &confpath) {
+module_config::module_config(const std::string &confpath)
+	:
+	conf_path(confpath) {
+
+	// read configuration file
 	std::string file_map = io::read_file(confpath);
 	std::vector<std::string> mappings = io::split(file_map, '\n');
 
@@ -90,7 +94,7 @@ std::string module_config::module_list() const {
 
 void module_config::get_module(const std::string &name, std::function<void(module &)> callback) const {
 	if (mod_paths.count(name) > 0) {
-		module used_module(mod_paths.at(name));
+		module used_module(conf_path + mod_paths.at(name));
 		if (used_module.open()) {
 			callback(used_module);
 		}
