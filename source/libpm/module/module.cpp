@@ -66,7 +66,7 @@ module_config::module_config(const std::string &confpath)
 	conf_path(confpath) {
 
 	// read configuration file
-	std::string file_map = io::read_file(confpath);
+	std::string file_map = io::read_file(confpath + "/modules.conf");
 	std::vector<std::string> mappings = io::split(file_map, '\n');
 
 	for (auto &m : mappings) {

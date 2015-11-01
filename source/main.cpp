@@ -18,8 +18,7 @@ int main(int argc, char *argv[]) {
 
 
 	// load the modules file
-	std::string module_file = content_path + "/modules.conf";
-	module::module_config mconf(module_file);
+	module::module_config mconf(content_path);
 
 	// accept http requests
 	os::tcp_acceptor webport(8080);
