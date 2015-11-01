@@ -38,6 +38,7 @@ void module::call(const std::string &fname) const {
 	}
 }
 
+
 const char *module::get_page(const char *page_name) const {
 	const char *(*fn)(const char *);
 	char *error;
@@ -51,6 +52,7 @@ const char *module::get_page(const char *page_name) const {
 		return fn(page_name);
 	}
 }
+
 
 module_config::module_config(const std::string &confpath) {
 	std::string file_map = io::read_file(confpath);
