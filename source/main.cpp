@@ -32,7 +32,6 @@ int main(int argc, char *argv[]) {
 
 			// find and return the resource
 			mconf.get_module(url[0], [&stream, &r](module::module &m) {
-				m.call("start");
 				std::string result = m.get_page(r.location.c_str());
 				stream.writes(http::create_response(result));
 			});

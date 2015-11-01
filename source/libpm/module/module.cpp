@@ -25,6 +25,11 @@ module::~module() {
 }
 
 
+bool module::open() const {
+	return lib_handle;
+}
+
+
 void module::call(const std::string &fname) const {
 	void (*fn)();
 	char *error;
@@ -84,7 +89,9 @@ std::string module_config::module_list() const {
 void module_config::get_module(const std::string &name, std::function<void(module &)> callback) const {
 	if (mod_paths.count(name) > 0) {
 		module used_module(mod_paths.at(name));
-		callback(used_module);
+		if (used_module.open()) {
+			callback(used_module);
+		}
 	}
 }
 

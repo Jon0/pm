@@ -12,6 +12,8 @@ public:
 	module(const std::string &libpath);
 	~module();
 
+	bool open() const;
+
 	void call(const std::string &fname) const;
 
 	/**
