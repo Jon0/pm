@@ -45,6 +45,7 @@ const char *module::get_page(const char *page_name) const {
 	fn = reinterpret_cast<const char *(*)(const char *)>(dlsym(lib_handle, "get_page"));
 	if ((error = dlerror()) != NULL) {
 		std::cerr << "error calling get_page\n";
+		return "not found";
 	}
 	else {
 		return fn(page_name);
