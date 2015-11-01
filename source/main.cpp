@@ -14,19 +14,17 @@ int main(int argc, char *argv[]) {
 	else {
 		content_path += ".";
 	}
-	std::cout << content_path << "\n";
-
-
-	// load the modules file
-	module::module_config mconf(content_path);
+	std::cout << "using directory: " << content_path << "\n";
 
 	// accept http requests
 	os::tcp_acceptor webport(8080);
 	while (true) {
 		os::tcp_stream stream(webport);
 		http::request r = http::parse_request("tcp", stream.reads());
-
 		std::vector<std::string> url = io::split(r.location, '/');
+
+		// reload the modules file
+		module::module_config mconf(content_path);
 		if (url.size() > 0 && mconf.has_module(url[0])) {
 
 			// find and return the resource

@@ -7,12 +7,15 @@
 
 namespace module {
 
-module::module(const std::string &libpath)
+module::module(const std::string &confpath, const std::string &libpath)
 	:
-	lib_handle(dlopen(libpath.c_str(), RTLD_LAZY)) {
+	lib_handle(dlopen((confpath + libpath).c_str(), RTLD_LAZY)) {
 
 	if (open()) {
 		std::cout << "loaded " << libpath << "\n";
+
+		// initialise configuration
+		set_path(confpath.c_str());
 	}
 	else {
 		std::cerr << "unable to load " << libpath << ": " << dlerror() << "\n";
@@ -42,6 +45,20 @@ void module::call(const std::string &fname) const {
 	}
 	else {
 		fn();
+	}
+}
+
+
+void module::set_path(const char *path) const {
+	void (*fn)(const char *);
+	char *error;
+
+	fn = reinterpret_cast<void (*)(const char *)>(dlsym(lib_handle, "set_conf_path"));
+	if ((error = dlerror()) != NULL) {
+		std::cerr << "error calling set_conf_path: " << error << "\n";
+	}
+	else {
+		fn(path);
 	}
 }
 
@@ -94,7 +111,7 @@ std::string module_config::module_list() const {
 
 void module_config::get_module(const std::string &name, std::function<void(module &)> callback) const {
 	if (mod_paths.count(name) > 0) {
-		module used_module(conf_path + mod_paths.at(name));
+		module used_module(conf_path, mod_paths.at(name));
 		if (used_module.open()) {
 			callback(used_module);
 		}

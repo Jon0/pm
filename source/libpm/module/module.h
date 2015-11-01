@@ -9,12 +9,14 @@ namespace module {
 
 class module {
 public:
-	module(const std::string &libpath);
+	module(const std::string &confpath, const std::string &libpath);
 	~module();
 
 	bool open() const;
 
 	void call(const std::string &fname) const;
+
+	void set_path(const char *path) const;
 
 	/**
 	 * io testing

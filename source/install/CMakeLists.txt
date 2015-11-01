@@ -7,7 +7,7 @@ file(GLOB INCLUDE_FILES
 	"*.h"
 )
 
-set(MODULE_NAME "module")
+set(MODULE_NAME "install")
 add_library(
 	${MODULE_NAME}
 	SHARED
@@ -19,3 +19,6 @@ target_link_libraries(
 	${MODULE_NAME}
 	${MAIN_LIBRARY_NAME}
 )
+
+# copy files
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/install.html" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/")
