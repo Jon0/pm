@@ -14,6 +14,11 @@ public:
 
 	void call(const std::string &fname) const;
 
+	/**
+	 * io testing
+	 */
+	const char *get_page(const char *page_name) const;
+
 private:
 	void *lib_handle;
 
@@ -23,6 +28,8 @@ private:
 class module_config {
 public:
 	module_config(const std::string &confpath);
+
+	bool has_module(const std::string &name) const;
 
 	std::string module_list() const;
 

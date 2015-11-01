@@ -38,6 +38,18 @@ void module::call(const std::string &fname) const {
 	}
 }
 
+const char *module::get_page(const char *page_name) const {
+	const char *(*fn)(const char *);
+	char *error;
+
+	fn = reinterpret_cast<const char *(*)(const char *)>(dlsym(lib_handle, "get_page"));
+	if ((error = dlerror()) != NULL) {
+		std::cerr << "error calling get_page\n";
+	}
+	else {
+		return fn(page_name);
+	}
+}
 
 module_config::module_config(const std::string &confpath) {
 	std::string file_map = io::read_file(confpath);
@@ -49,7 +61,11 @@ module_config::module_config(const std::string &confpath) {
 			mod_paths.insert(std::make_pair(line[0], line[1]));
 		}
 	}
+}
 
+
+bool module_config::has_module(const std::string &name) const {
+	return (mod_paths.count(name) > 0);
 }
 
 
