@@ -11,17 +11,19 @@ module::module(const std::string &libpath)
 	:
 	lib_handle(dlopen(libpath.c_str(), RTLD_LAZY)) {
 
-	if (!lib_handle) {
-		std::cerr << "unable to load " << libpath << "\n";
+	if (open()) {
+		std::cout << "loaded " << libpath << "\n";
 	}
 	else {
-		std::cout << "loaded " << libpath << "\n";
+		std::cerr << "unable to load " << libpath << "\n";
 	}
 }
 
 
 module::~module() {
-	dlclose(lib_handle);
+	if (open()) {
+		dlclose(lib_handle);
+	}
 }
 
 
