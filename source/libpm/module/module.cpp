@@ -15,7 +15,7 @@ module::module(const std::string &libpath)
 		std::cout << "loaded " << libpath << "\n";
 	}
 	else {
-		std::cerr << "unable to load " << libpath << "\n";
+		std::cerr << "unable to load " << libpath << ": " << dlerror() << "\n";
 	}
 }
 
