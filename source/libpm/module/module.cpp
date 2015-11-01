@@ -38,7 +38,7 @@ void module::call(const std::string &fname) const {
 
 	fn = reinterpret_cast<void (*)()>(dlsym(lib_handle, fname.c_str()));
 	if ((error = dlerror()) != NULL) {
-		std::cerr << "error " << fname << "\n";
+		std::cerr << "error " << fname << ": " << error << "\n";
 	}
 	else {
 		fn();
@@ -52,7 +52,7 @@ const char *module::get_page(const char *page_name) const {
 
 	fn = reinterpret_cast<const char *(*)(const char *)>(dlsym(lib_handle, "get_page"));
 	if ((error = dlerror()) != NULL) {
-		std::cerr << "error calling get_page\n";
+		std::cerr << "error calling get_page: " << error << "\n";
 		return "not found";
 	}
 	else {
