@@ -29,13 +29,15 @@ int main(int argc, char *argv[]) {
 
 		std::vector<std::string> url = io::split(r.location, '/');
 		if (url.size() > 0 && mconf.has_module(url[0])) {
-			// find the resource
-			mconf.get_module("module1", [&stream](module::module &m) {
-				std::string result = m.get_page("sample");
+
+			// find and return the resource
+			mconf.get_module(url[0], [&stream, &r](module::module &m) {
+				std::string result = m.get_page(r.location.c_str());
 				stream.writes(http::create_response(result));
 			});
 		}
 		else {
+
 			// show available modules
 			std::string result = mconf.module_list();
 			stream.writes(http::create_response(result));
