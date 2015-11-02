@@ -33,6 +33,14 @@ int main(int argc, char *argv[]) {
 				stream.writes(http::create_response(result));
 			});
 		}
+		else if (mconf.has_module("home")) {
+
+			// find and return the home page
+			mconf.get_module("home", [&stream, &r](module::module &m) {
+				std::string result = m.get_page(r.location.c_str());
+				stream.writes(http::create_response(result));
+			});
+		}
 		else {
 
 			// show available modules

@@ -108,6 +108,9 @@ std::string module_config::module_list() const {
 	return result;
 }
 
+const std::unordered_map<std::string, std::string> &module_config::module_map() const {
+	return mod_paths;
+}
 
 void module_config::get_module(const std::string &name, std::function<void(module &)> callback) const {
 	if (mod_paths.count(name) > 0) {

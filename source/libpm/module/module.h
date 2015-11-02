@@ -37,6 +37,8 @@ public:
 
 	std::string module_list() const;
 
+	const std::unordered_map<std::string, std::string> &module_map() const;
+
 	void get_module(const std::string &name, std::function<void(module &)> callback) const;
 
 private:
