@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include <module/module.h>
-#include <pipe.h>
+#include <os/pipe.h>
 #include <strings.h>
 
 #include "interface.h"

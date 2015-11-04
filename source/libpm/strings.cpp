@@ -37,6 +37,21 @@ std::string read_file(const std::string &filename) {
 	return ss.str();
 }
 
+std::vector<std::string> read_file_lines(const std::string &filename) {
+	return split(read_file(filename), '\n');
+}
+
+std::unordered_map<std::string, std::string> read_file_map(const std::string &filename) {
+	std::unordered_map<std::string, std::string> result;
+	for (auto &line : read_file_lines(filename)) {
+		std::vector<std::string> line_split = io::split(line, ' ');
+		if (line_split.size() == 2) {
+			result.insert(std::make_pair(line_split[0], line_split[1]));
+		}
+	}
+	return result;
+}
+
 std::string read_line(const std::string &filename) {
 	std::string content = read_file(filename);
 	auto vector = split(content, '\n');

@@ -83,15 +83,8 @@ module_config::module_config(const std::string &confpath)
 	conf_path(confpath) {
 
 	// read configuration file
-	std::string file_map = io::read_file(confpath + "/modules.conf");
-	std::vector<std::string> mappings = io::split(file_map, '\n');
-
-	for (auto &m : mappings) {
-		std::vector<std::string> line = io::split(m, ' ');
-		if (line.size() == 2) {
-			mod_paths.insert(std::make_pair(line[0], line[1]));
-		}
-	}
+	std::string map_file_path = io::read_file(confpath + "/modules.conf");
+	mod_paths = io::read_file_map(map_file_path);
 }
 
 

@@ -3,8 +3,15 @@
 #include <http/request.h>
 #include <http/response.h>
 #include <module/module.h>
-#include <socket.h>
+#include <os/pipe.h>
+#include <os/socket.h>
 #include <strings.h>
+
+void update(const std::string &content_path) {
+
+	// TODO check for result errors
+	os::exec(content_path + "/source/shell/update.sh");
+}
 
 int main(int argc, char *argv[]) {
 	std::string content_path = "";
@@ -15,6 +22,10 @@ int main(int argc, char *argv[]) {
 		content_path += ".";
 	}
 	std::cout << "using directory: " << content_path << "\n";
+
+	// update core modules
+	update(content_path);
+	std::cout << "update complete, starting server\n";
 
 	// accept http requests
 	os::tcp_acceptor webport(8080);

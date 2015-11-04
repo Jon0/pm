@@ -3,12 +3,14 @@ file(GLOB SRC_FILES
 	"*.cpp"
 	"http/*.cpp"
 	"module/*.cpp"
+	"os/*.cpp"
 )
 
 file(GLOB INCLUDE_FILES
 	"*.h"
 	"http/*.h"
 	"module/*.h"
+	"os/*.h"
 )
 
 add_library(

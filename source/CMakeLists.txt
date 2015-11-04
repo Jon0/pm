@@ -10,6 +10,7 @@ include_directories("${PROJECT_SOURCE_DIR}/source/libpm")
 add_subdirectory(home)
 add_subdirectory(install)
 add_subdirectory(module)
+add_subdirectory(shell)
 
 # executable files
 file(GLOB MAIN_FILES
