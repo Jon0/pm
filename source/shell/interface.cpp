@@ -13,8 +13,8 @@ void set_conf_path(const char *confpath) {
 }
 
 const char *get_page(const char *page_name) {
-	os::exec(conf_path + "/source/shell/update.sh");
+	std::string result = os::exec(conf_path + "/source/shell/update.sh");
 	std::string page_path = conf_path + "/source/shell/shell.html";
-	page_out = io::read_file(page_path);
+	page_out = io::read_file(page_path) + "<br>" + result;
 	return page_out.c_str();
 }
