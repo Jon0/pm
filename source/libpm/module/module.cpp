@@ -80,11 +80,9 @@ const char *module::get_page(const char *page_name) const {
 
 module_config::module_config(const std::string &confpath)
 	:
-	conf_path(confpath) {
+	conf_path(confpath),
+	mod_paths(io::read_file_map(confpath + "/modules.conf")) {
 
-	// read configuration file
-	std::string map_file_path = io::read_file(confpath + "/modules.conf");
-	mod_paths = io::read_file_map(map_file_path);
 }
 
 

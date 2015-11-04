@@ -22,6 +22,8 @@ int main(int argc, char *argv[]) {
 		content_path += ".";
 	}
 	std::cout << "using directory: " << content_path << "\n";
+	module::module_config init_mconf(content_path);
+	std::cout << init_mconf.module_list() << "\n";
 
 	// update core modules
 	update(content_path);
